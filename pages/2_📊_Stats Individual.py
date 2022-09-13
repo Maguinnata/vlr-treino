@@ -49,24 +49,26 @@ st.markdown('---')
 
 ########## SIDEBAR ##########
 
-var = st.sidebar.multiselect(
+st.sidebar.header('Filtros')
+
+var1 = st.sidebar.multiselect(
     'Selecione uma Variável (Gráfico 1)',
     options= stats_f.columns.unique(),
     #default= 'ACS',
 )
 
-stats_var = stats_f.query(
-    'ACS == @var'
+stats_var_1 = stats_f.query(
+    'ACS == @var1'
 )
 
-var_2 = st.sidebar.multiselect(
+var2 = st.sidebar.multiselect(
     'Selecione uma Variável (Gráfico 2)',
     options= stats_r_geral.columns.unique(),
     #default=(),
 )
 
 stats_var_2 = stats_r_geral.query(
-    'KD == @var_2 & KpR == @var_2'
+    'KD == @var2 & KpR == @var2'
 )
 
 ########### KPI ###########
@@ -81,7 +83,7 @@ st.dataframe(stats_individual.style.format(precision=2))
 g_stats_indiv = px.bar(
     stats_individual.round(2),
     x= 'Players',
-    y= var,
+    y= var1,
     barmode= 'group',
     text_auto= True,
     color_discrete_sequence= ['#0d0887','orangered','lightslategray'],
@@ -94,7 +96,7 @@ g_stats_indiv.update_layout(
     xaxis = (dict(showgrid= False))
 )
 st.plotly_chart(g_stats_indiv)
-st.markdown('##')
+st.markdown('----')
 
 ########### GRÁFICO STATS INDIVIDUAS POR ROUND ###########
 
@@ -102,7 +104,7 @@ st.title('Stats Individual - p/ Round')
 g_stats_indiv_r = px.bar(
     stats_r_geral.round(2),
     x= 'Players',
-    y= var_2,
+    y= var2,
     barmode= 'group',
     text_auto= True,
     #title= '<b> Stats per Player </b>',
@@ -116,7 +118,7 @@ g_stats_indiv_r.update_layout(
     xaxis = (dict(showgrid= False))
 )
 st.plotly_chart(g_stats_indiv_r)
-st.markdown('##')
+st.markdown('----')
 
 ########### GRÁFICO STATS KpR x ACS ###########
 

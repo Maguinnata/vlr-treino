@@ -42,8 +42,6 @@ sb_ct = stats_ct_f.query(
 
 ########## CT ##########
 
-#sb_ct['Porcentagem']= ((stats_ct_f['Retake Total (W)']/stats_ct_f['Retake Total'])*100)
-
 st.subheader('Stats CT')
 st.dataframe(sb_ct)
 
@@ -91,7 +89,7 @@ g_pistol_tr = px.histogram(
 )
 st.plotly_chart(g_pistol_tr)
 
-st.markdown('##')
+st.markdown('----')
 
 ########## ECO ##########
 
@@ -104,6 +102,8 @@ st.dataframe(stats_eco_f.style.format(precision=2))
 
 stats_eco_opp_f = stats_eco_opp.groupby(['Time']).sum().round(2).reset_index()
 st.dataframe(stats_eco_opp_f.style.format(precision=2))
+
+st.markdown('----')
 
 ########## GRÁFICO 5V4 X 4V5 ##########
 stats_opening_f1 = stats_opening.drop(columns=['Monitorar','OpD - W','OpD - L','Mapas','Data'])

@@ -85,13 +85,13 @@ st.dataframe(stats_mapa.style.format(precision=2))
 
 ########### CUSTOM CSS ###########
 
-#hide_st_style = """
-#<style>
-#MainMenu {visibility: show;}
-#footer {visibility: show;}
-#header {visibility: show;}
-#</style>
-#"""
-#st.markdown(hide_st_style, unsafe_allow_html=True)
+hide_st_style = """
+<style>
+MainMenu {visibility: show;}
+footer {visibility: show;}
+header {visibility: show;}
+</style>
+"""
+st.markdown(hide_st_style, unsafe_allow_html=True)
 
 
