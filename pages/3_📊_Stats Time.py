@@ -28,7 +28,7 @@ st.title('📊 Stats Time')
 st.markdown('---')
 
 
-tab1, tab2, tab3, tab4 = st.tabs(['▶️ CT','▶️ TR','▶️ ECO','▶️ Opening Duels'])
+tab1, tab2, tab3, tab4 = st.tabs(['▶️ CT','▶️ TR','▶️ ECO/ECO OPP','▶️ Opening Duels'])
 
 ########### CT ###########
 with tab1:
