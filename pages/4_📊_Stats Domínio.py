@@ -14,7 +14,7 @@ Haven = 'https://i.imgur.com/NpeYtOi.png'
 Icebox = 'https://i.imgur.com/SMCmzBH.png'
 Pearl = 'https://i.imgur.com/rFqEi2Y.png'
 
-########### FILTROS ###########
+########### FILTROS & VARI000000000000000000000VEIS ###########
 
 filtro_ascent = stats_dom.drop(columns= ['Data','Semana','Bind','Breeze','Fracture','Haven','Icebox','Pearl'])
 ascent_filtrado = filtro_ascent.groupby(['Ascent']).sum().reset_index()
@@ -46,66 +46,60 @@ st.set_page_config(page_title='Treinos',
 st.title('📊 Stats Domínio')
 st.markdown('---')
 
-########## PÁGINA PRINCIPAL ##########
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(['▶️ Ascent','▶️ Bind','▶️ Breeze','▶️ Fracture','▶️ Haven','▶️ Icebox','▶️ Pearl'])
 
-st.subheader('Ascent')
-st.image(
-    image=[Ascent],
-    #height = '60px',
-    width= 470
-)
-st.dataframe(ascent_filtrado.style.format(precision=2))
+########## ASCENT ##########
+with tab1:
+    st.image(
+        image= [Ascent],
+        width= 500
+    )
+    st.dataframe(ascent_filtrado.style.format(precision=2))
 
-st.markdown('---')
+########## BIND ##########
+with tab2:
+    st.image(
+        image= [Bind],
+        width= 480
+    )
+    st.dataframe(bind_filtrado.style.format(precision=2))
 
-st.subheader('Bind')
-st.image(
-    image= [Bind],
-    width= 409
-)
-st.dataframe(bind_filtrado.style.format(precision=2))
+########## BREEZE ##########
+with tab3:
+    st.image(
+        image= [Breeze],
+        width= 500
+    )
+    st.dataframe(breeze_filtrado.style.format(precision=2))
 
-st.markdown('---')
+########## FRACTURE ##########
+with tab4:
+    st.image(
+        image= [Fracture],
+        width= 500
+    )
+    st.dataframe(fracture_filtrado.style.format(precision=2))
 
-st.subheader('Breeze')
-st.image(
-    image= [Breeze],
-    width= 400
-)
-st.dataframe(breeze_filtrado.style.format(precision=2))
+########## HAVEN ##########
+with tab5:
+    st.image(
+        image= [Haven],
+        width= 500
+    )
+    st.dataframe(haven_filtrado.style.format(precision=2))
 
-st.markdown('---')
+########## ICEBOX ##########
+with tab6:
+    st.image(
+        image= [Icebox],
+        width= 500
+    )
+    st.dataframe(icebox_filtrado.style.format(precision=2))
 
-st.subheader('Fracture')
-st.image(
-    image=[Fracture],
-    width= 336
-)
-st.dataframe(fracture_filtrado.style.format(precision=2))
-
-st.markdown('---')
-
-st.subheader('Haven')
-st.image(
-    image=[Haven],
-    width=400
-)
-st.dataframe(haven_filtrado.style.format(precision=2))
-
-st.markdown('---')
-
-st.subheader('Icebox')
-st.image(
-    image=[Icebox],
-    width=400
-)
-st.dataframe(icebox_filtrado.style.format(precision=2))
-
-st.markdown('---')
-
-st.subheader('Pearl')
-st.image(
-    image=[Pearl],
-    width=400
-)
-st.dataframe(pearl_filtrado.style.format(precision=2))
+########## PEARL ##########
+with tab7:
+    st.image(
+        image= [Pearl],
+        width= 500
+    )
+    st.dataframe(pearl_filtrado.style.format(precision=2))

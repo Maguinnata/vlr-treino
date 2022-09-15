@@ -44,7 +44,7 @@ st.set_page_config(page_title='Treinos',
                    page_icon= ':bar_chart:',
                    #layout= 'wide',
                    )
-st.title('📊 Stats Individual - Média')
+st.title('📊 Stats Individual')
 st.markdown('---')
 
 ########## SIDEBAR ##########
@@ -52,7 +52,7 @@ st.markdown('---')
 st.sidebar.header('Filtros')
 
 var1 = st.sidebar.multiselect(
-    'Selecione uma Variável (Gráfico 1)',
+    'Selecione uma Variável (Média)',
     options= stats_f.columns.unique(),
     #default= 'ACS',
 )
@@ -62,7 +62,7 @@ stats_var_1 = stats_f.query(
 )
 
 var2 = st.sidebar.multiselect(
-    'Selecione uma Variável (Gráfico 2)',
+    'Selecione uma Variável (p/Round)',
     options= stats_r_geral.columns.unique(),
     #default=(),
 )
@@ -71,16 +71,15 @@ stats_var_2 = stats_r_geral.query(
     'KD == @var2 & KpR == @var2'
 )
 
-########### KPI ###########
-
+########### KPI's ###########
 stats_individual = stats_f.groupby(['Players']).mean().reset_index().round(2)
 
-st.markdown('##')
-st.dataframe(stats_individual.style.format(precision=2))
+tab1, tab2, tab3 = st.tabs(['▶️ Média','▶️ p/ Round','▶️ KpR x ACS'])
 
-########### GRÁFICO STATS INDIVIDUAS POR PLAYER ###########
-
-g_stats_indiv = px.bar(
+##########STATS INDIVIDUAIS MÉDIA E GRÁFICO##########
+with tab1:
+    st.dataframe(stats_individual.style.format(precision=2))
+    g_stats_indiv = px.bar(
     stats_individual.round(2),
     x= 'Players',
     y= var1,
@@ -90,49 +89,45 @@ g_stats_indiv = px.bar(
     width= 800,
     height= 500,
     template= 'plotly_white'
-)
-g_stats_indiv.update_layout(
+    )
+    g_stats_indiv.update_layout(
     plot_bgcolor= 'rgba(0,0,0,0)',
     xaxis = (dict(showgrid= False))
-)
-st.plotly_chart(g_stats_indiv)
-st.markdown('----')
+    )
+    st.plotly_chart(g_stats_indiv)
 
-########### GRÁFICO STATS INDIVIDUAS POR ROUND ###########
+##########STATS INDIVIDUAIS p/ROUND E GRÁFICO##########
+with tab2:
+    g_stats_indiv_r = px.bar(
+        stats_r_geral.round(2),
+        x='Players',
+        y=var2,
+        barmode='group',
+        text_auto=True,
+        # title= '<b> Stats per Player </b>',
+        color_discrete_sequence=['#0d0887', 'orangered', 'lightslategray'],
+        width=800,
+        height=500,
+        template='plotly_white'
+    )
+    g_stats_indiv_r.update_layout(
+        plot_bgcolor='rgba(0,0,0,0)',
+        xaxis=(dict(showgrid=False))
+    )
+    st.plotly_chart(g_stats_indiv_r)
 
-st.title('Stats Individual - p/ Round')
-g_stats_indiv_r = px.bar(
-    stats_r_geral.round(2),
-    x= 'Players',
-    y= var2,
-    barmode= 'group',
-    text_auto= True,
-    #title= '<b> Stats per Player </b>',
-    color_discrete_sequence= ['#0d0887','orangered','lightslategray'],
-    width= 800,
-    height= 500,
-    template= 'plotly_white'
-)
-g_stats_indiv_r.update_layout(
-    plot_bgcolor= 'rgba(0,0,0,0)',
-    xaxis = (dict(showgrid= False))
-)
-st.plotly_chart(g_stats_indiv_r)
-st.markdown('----')
+##########STATS INDIVIDUAIS KpR x ACS E GRÁFICO##########
+with tab3:
+    g_scatter = px.scatter(stats_individual,
+                           x=stats_individual['ACS'],
+                           y=stats_r_geral['KpR'],
+                           text=stats_individual['Players'],
+                           color=stats_individual['Players'],
+                           size=stats_individual['ACS'],
+                           labels=dict(x='ACS', y='KpR'),
+                           width=730,
+                           height=430,
+                           hover_data=['ACS'],
+                           )
 
-########### GRÁFICO STATS KpR x ACS ###########
-
-st.title('Stats Individual - KpR X ACS')
-g_scatter = px.scatter(stats_individual,
-    x= stats_individual['ACS'],
-    y= stats_r_geral['KpR'],
-    text= stats_individual['Players'],
-    color= stats_individual['Players'],
-    size= stats_individual['ACS'],
-    labels= dict(x = 'ACS', y= 'KpR'),
-    width= 730,
-    height= 430,
-    hover_data= ['ACS']
-)
-
-st.plotly_chart(g_scatter)
+    st.plotly_chart(g_scatter)

@@ -81,7 +81,7 @@ st.plotly_chart(g_mapas)
 ########### TABELA ###########
 
 st.markdown('----')
-st.dataframe(stats_mapa.style.format(precision=2))
+st.table(stats_mapa.style.format(precision=2))
 
 ########### CUSTOM CSS ###########
 
