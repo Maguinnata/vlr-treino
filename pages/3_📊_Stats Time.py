@@ -28,7 +28,7 @@ st.title('📊 Stats Time')
 st.markdown('---')
 
 
-tab1, tab2, tab3, tab4 = st.tabs(['▶️ CT','▶️ TR','▶️ ECO/ECO OPP','▶️ Opening Duels'])
+tab1, tab2, tab3, tab4 = st.tabs(['▶️ CT','▶️ TR','▶️ ECO/ECO OPP','▶️ Round Win %'])
 
 ########### CT ###########
 with tab1:
@@ -100,7 +100,7 @@ with tab3:
     stats_eco_opp_f = stats_eco_opp.groupby(['Time']).sum().round(2).reset_index()
     st.dataframe(stats_eco_opp_f.style.format(precision=2))
 
-########## GRÁFICO 5V4 X 4V5 ##########
+########## ROUND WIN % ##########
 with tab4:
     stats_opening_f1 = stats_opening.drop(columns=['Monitorar', 'OpD - W', 'OpD - L', 'Mapas', 'Data'])
 
