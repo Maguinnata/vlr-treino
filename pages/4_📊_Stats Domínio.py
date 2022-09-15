@@ -12,7 +12,7 @@ Breeze = 'https://i.imgur.com/jfzQMnw.png'
 Fracture = 'https://i.imgur.com/224BMCP.png'
 Haven = 'https://i.imgur.com/NpeYtOi.png'
 Icebox = 'https://i.imgur.com/SMCmzBH.png'
-#Pearl =
+Pearl = 'https://i.imgur.com/rFqEi2Y.png'
 
 ########### FILTROS ###########
 
@@ -34,6 +34,8 @@ haven_filtrado = filtro_haven.groupby(['Haven']).sum().reset_index()
 filtro_icebox = stats_dom.drop(columns= ['Data','Semana','Ascent','Bind','Breeze','Fracture','Haven','Pearl'])
 icebox_filtrado = filtro_icebox.groupby(['Icebox']).sum().reset_index()
 
+filtro_pearl = stats_dom.drop(columns= ['Data','Semana','Ascent','Bind','Breeze','Fracture','Haven','Icebox'])
+pearl_filtrado = filtro_pearl.groupby(['Pearl']).sum().reset_index()
 
 ########## CONFIG ##########
 st.set_page_config(page_title='Treinos',
@@ -102,7 +104,8 @@ st.dataframe(icebox_filtrado.style.format(precision=2))
 st.markdown('---')
 
 st.subheader('Pearl')
-#st.image(
- #   image=[Icebox],
-  #  width=400
-#)
+st.image(
+    image=[Pearl],
+    width=400
+)
+st.dataframe(pearl_filtrado.style.format(precision=2))
