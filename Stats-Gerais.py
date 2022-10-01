@@ -74,14 +74,18 @@ g_mapas = px.pie(stats,
                  names= 'Mapas',
                  width= 900,
                  height= 470,
+                 color_discrete_sequence= ['#6959CD','#FFA07A','#F5DEB3','#87CEEB','#DCDCDC','#6B8E23','#4169E1','#00BFFF'],
+                 hover_data=['Mapas'] ,
+                 labels= {'Mapas':'Nome'}
 )
-g_mapas.update_layout(font= dict(size= 19), legend= dict(font=dict(size= 19)))
+g_mapas.update_traces(textposition='inside', textinfo='percent+label')
+g_mapas.update_layout(font= dict(size= 18), legend= dict(font=dict(size= 15)))
 st.plotly_chart(g_mapas)
 
 ########### TABELA ###########
 
 st.markdown('----')
-st.table(stats_mapa.style.format(precision=2))
+st.table(stats_mapa.style.format(precision=1))
 
 ########### CUSTOM CSS ###########
 

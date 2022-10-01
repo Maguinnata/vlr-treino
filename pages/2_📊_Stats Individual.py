@@ -77,8 +77,10 @@ stats_individual = stats_f.groupby(['Players']).mean().reset_index().round(2)
 tab1, tab2, tab3 = st.tabs(['▶️ Média','▶️ p/ Round','▶️ KpR x ACS'])
 
 ##########STATS INDIVIDUAIS MÉDIA E GRÁFICO##########
+
 with tab1:
     st.dataframe(stats_individual.style.format(precision=2))
+
     g_stats_indiv = px.bar(
     stats_individual.round(2),
     x= 'Players',
@@ -94,9 +96,11 @@ with tab1:
     plot_bgcolor= 'rgba(0,0,0,0)',
     xaxis = (dict(showgrid= False))
     )
+    g_stats_indiv.update_layout(font=dict(size=15))
     st.plotly_chart(g_stats_indiv)
 
 ##########STATS INDIVIDUAIS p/ROUND E GRÁFICO##########
+
 with tab2:
     g_stats_indiv_r = px.bar(
         stats_r_geral.round(2),
@@ -114,9 +118,11 @@ with tab2:
         plot_bgcolor='rgba(0,0,0,0)',
         xaxis=(dict(showgrid=False))
     )
+    g_stats_indiv_r.update_layout(font=dict(size=15))
     st.plotly_chart(g_stats_indiv_r)
 
 ##########STATS INDIVIDUAIS KpR x ACS E GRÁFICO##########
+
 with tab3:
     g_scatter = px.scatter(stats_individual,
                            x=stats_individual['ACS'],
@@ -129,5 +135,5 @@ with tab3:
                            height=430,
                            hover_data=['ACS'],
                            )
-
+    g_scatter.update_layout(font=dict(size=15))
     st.plotly_chart(g_scatter)

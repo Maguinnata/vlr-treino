@@ -103,3 +103,4 @@ with tab7:
         width= 500
     )
     st.dataframe(pearl_filtrado.style.format(precision=2))
+
