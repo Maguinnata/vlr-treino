@@ -87,7 +87,7 @@ with tab1:
     g_wr_ct.update_layout(font=dict(size=17))
 
     st.subheader('Retake')
-    st.dataframe(sb_ct.Styler.apply_index(color,axis=0))
+    st.dataframe(sb_ct)
     st.subheader('##')
     st.subheader('Win Rate p/ Mapa')
     st.plotly_chart(g_wr_ct)
