@@ -75,7 +75,7 @@ g_mapas = px.pie(stats,
                  width= 900,
                  height= 470,
                  color_discrete_sequence= ['#6959CD','#FFA07A','#F5DEB3','#87CEEB','#DCDCDC','#6B8E23','#4169E1','#00BFFF'],
-                 hover_data=['Mapas'] ,
+                 hover_data=['Mapas'],
                  labels= {'Mapas':'Nome'}
 )
 g_mapas.update_traces(textposition='inside', textinfo='percent+label')

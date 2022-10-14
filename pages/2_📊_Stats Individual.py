@@ -61,6 +61,15 @@ stats_var_1 = stats_f.query(
     'ACS == @var1'
 )
 
+box1 = st.sidebar.selectbox(
+    'Selecione uma Variável (Quartil)',
+    options= stats_f.columns.unique(),
+)
+
+stats_box_1 = stats_f.query(
+    'ACS == @box1'
+)
+
 var2 = st.sidebar.multiselect(
     'Selecione uma Variável (p/Round)',
     options= stats_r_geral.columns.unique(),
@@ -90,14 +99,34 @@ with tab1:
     color_discrete_sequence= ['#0d0887','orangered','lightslategray'],
     width= 800,
     height= 500,
-    template= 'plotly_white'
+    title= '<b> Média </b>'
     )
+
     g_stats_indiv.update_layout(
     plot_bgcolor= 'rgba(0,0,0,0)',
     xaxis = (dict(showgrid= False))
     )
     g_stats_indiv.update_layout(font=dict(size=15))
+
     st.plotly_chart(g_stats_indiv)
+
+    g_stats_indiv2 = px.box(
+        stats_f.round(2),
+        x= 'Players',
+        y= box1,
+        points= 'suspectedoutliers',
+        width= 800,
+        height= 500,
+        title= '<b> Quartil </b>'
+    )
+
+    g_stats_indiv2.update_layout(
+        plot_bgcolor='rgba(0,0,0,0)',
+        xaxis=(dict(showgrid=False))
+    )
+    g_stats_indiv2.update_layout(font=dict(size=15))
+
+    st.plotly_chart(g_stats_indiv2)
 
 ##########STATS INDIVIDUAIS p/ROUND E GRÁFICO##########
 
@@ -108,7 +137,7 @@ with tab2:
         y=var2,
         barmode='group',
         text_auto=True,
-        # title= '<b> Stats per Player </b>',
+        #title= '<b> Stats p/ Round </b>',
         color_discrete_sequence=['#0d0887', 'orangered', 'lightslategray'],
         width=800,
         height=500,
