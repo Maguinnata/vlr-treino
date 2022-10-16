@@ -7,8 +7,13 @@ import plotly.express as px
 stats = pd.read_excel('Stats.xlsx')
 filtro1 = ['Data','Semana','Agentes','Mapas','W-Round','L-Round','W-TR','L-TR','W-CT','L-CT','Pickrate']
 filtro2 = ['W-Round','L-Round','W-TR','L-TR','W-CT','L-CT','Pickrate']
+filtro3 = ['Data','Semana','Agentes','W-Round','L-Round','W-TR','L-TR','W-CT','L-CT','Players']
+filtro4 = ['Data','Semana','Agentes','Mapas','L-Round','W-TR','L-TR','W-CT','L-CT','Pickrate']
+
 stats_f1 = stats.drop(columns= filtro1).round(2)
 stats_f2 = stats.drop(columns= filtro2).round(2)
+stats_f3 = stats.drop(columns= filtro3).round(2)
+stats_f4 = stats.drop(columns= filtro4).round(2)
 
 ########### CONFIG ###########
 
@@ -41,9 +46,10 @@ st.header('📊 Stats Gerais')
 st.markdown('-Referente ao Mês de Agosto-')
 st.markdown('----')
 
-w_round = stats.loc[stats['W-Round'] > 12] = +1
-l_round = stats.loc[stats['W-Round'] < 12] = +1
-d_round = stats.loc[stats['W-Round'] == 12] = +1
+w_round = len(stats_f4[stats_f4['W-Round'] > 12])
+l_round = len(stats_f4[stats_f4['W-Round'] < 12])
+d_round = len(stats_f4[stats_f4['W-Round'] == 12])
+
 
 total_round = l_round + d_round + w_round
 
@@ -69,7 +75,7 @@ st.markdown('----')
 
 ########### GRÁFICO DE PIZZA ###########
 
-g_mapas = px.pie(stats,
+g_mapas = px.pie(stats_f3,
                  values= 'Pickrate',
                  names= 'Mapas',
                  width= 900,
