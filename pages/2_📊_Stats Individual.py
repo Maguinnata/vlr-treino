@@ -12,7 +12,7 @@ stats_r = pd.read_excel('Stats por Round.xlsx')
 ########### CONVERSÕES ###########
 
 stats['Data'] = stats['Data'].dt.strftime('%d/%m/%Y')
-rounds = 518
+rounds = 1128
 
 ########### KD e KpR ###########
 
@@ -153,16 +153,32 @@ with tab2:
 ##########STATS INDIVIDUAIS KpR x ACS E GRÁFICO##########
 
 with tab3:
-    g_scatter = px.scatter(stats_individual,
-                           x=stats_individual['ACS'],
-                           y=stats_r_geral['KpR'],
-                           text=stats_individual['Players'],
-                           color=stats_individual['Players'],
-                           size=stats_individual['ACS'],
-                           labels=dict(x='ACS', y='KpR'),
-                           width=730,
-                           height=430,
-                           hover_data=['ACS'],
-                           )
-    g_scatter.update_layout(font=dict(size=15))
-    st.plotly_chart(g_scatter)
+    g_scatter_acs_kpr = px.scatter(stats_individual,
+                                   x=stats_individual['ACS'],
+                                   y=stats_r_geral['KpR'],
+                                   text=stats_individual['Players'],
+                                   color=stats_individual['Players'],
+                                   size=stats_individual['ACS'],
+                                   labels=dict(x='ACS', y='KpR'),
+                                   width=730,
+                                   height=430,
+                                   hover_data=['ACS'],
+                                   )
+    g_scatter_acs_kpr.update_layout(font=dict(size=15))
+    st.plotly_chart(g_scatter_acs_kpr)
+
+    st.markdown('##')
+
+    g_scatter_acs_fk= px.scatter(stats_individual,
+                                 x= stats_individual['ACS'],
+                                 y= stats_r_geral['ApR'],
+                                 text=stats_individual['Players'],
+                                 color=stats_individual['Players'],
+                                 size=stats_individual['ACS'],
+                                 labels=dict(x='ACS', y='ApR', size= 'ACS'),
+                                 width=730,
+                                 height=430,
+                                 hover_data=['ACS'],
+                                 )
+    g_scatter_acs_fk.update_layout(font=dict(size=15))
+    st.plotly_chart(g_scatter_acs_fk)
